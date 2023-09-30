@@ -1,16 +1,34 @@
-# amazon_clone
+# Flutter Amazon Clone
 
-A new Flutter project.
+A full-stack e-commerce application built with Flutter for the frontend and Node.js for the backend, replicating the popular Amazon shopping experience.
 
-## Getting Started
+![Screenshot](link-to-your-screenshot.png)
 
-This project is a starting point for a Flutter application.
+## Features
 
-A few resources to get you started if this is your first Flutter project:
+- User authentication and registration
+- Browse and search for products
+- Add items to the shopping cart
+- View and edit the shopping cart
+- Place and track orders
+- Product reviews and ratings
+- User profiles
+- Admin dashboard (if applicable)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Technologies Used
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Frontend:** Flutter
+- **Backend:** Node.js
+- **Database:** [Your Database System, e.g., MongoDB, PostgreSQL]
+- **Authentication:** [Your Authentication System, e.g., Firebase Authentication]
+- **State Management:** [State Management Library, e.g., Provider, Bloc]
+- **API Integration:** [Any external APIs or services used]
+- **UI/UX:** [Any additional UI/UX libraries or tools]
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-username/Flutter_Amazon_Clone.git
+   cd Flutter_Amazon_Clone
