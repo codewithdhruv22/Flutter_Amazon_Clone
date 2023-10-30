@@ -2,6 +2,7 @@ console.log("Kaise hain aap log ?");
 
 const express = require('express'); // import '....material.dart'
 const dash = require('./routes/dash');
+const auth = require('./routes/auth');
 
 const app  = express(); // dataModel = DataModel();
 const PORT = 3000;
@@ -14,6 +15,7 @@ res.send("HOME PAGE");
 });
 
 app.use(dash);
+app.use(auth);
 
 // CLIENT <-middleware-> SERVER
 
