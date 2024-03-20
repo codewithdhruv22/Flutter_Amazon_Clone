@@ -1,7 +1,7 @@
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
-
+import '../../controller/authController.dart';
 class AuthScreen extends StatefulWidget {
   static const String routeName = '/auth-screen';
   const AuthScreen({super.key});
@@ -14,12 +14,15 @@ class _AuthScreenState extends State<AuthScreen> {
   var signUpKey = GlobalKey<FormState>();
   var signInKey = GlobalKey<FormState>();
 
-  void _SignUpsubmit() {
+  void _SignUpsubmit(String email, String name , String password) {
     final isValid = signUpKey.currentState!.validate();
     if (!isValid) {
+
       return;
     }
     signUpKey.currentState!.save();
+       print("I AM WORKING 22222");
+    AuthController().signUpUser(context : context,email: email, name: name, password: password);
   }
 
   void _SignInsubmit() {
@@ -28,15 +31,21 @@ class _AuthScreenState extends State<AuthScreen> {
       return;
     }
     signInKey.currentState!.save();
+    print("I AM WORKING 22");
+   AuthController().signInUser(context: context, email: emailController.text, password: passwordController.text);
   }
 
   bool isLoginEnabled = false;
+
+  final emailController = TextEditingController();
+  final nameController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Amazon Clone"),
+        title: const Text("Amazon Clone"),
         centerTitle: true,
         elevation: 0.0,
       ),
@@ -51,34 +60,35 @@ class _AuthScreenState extends State<AuthScreen> {
                       key: signInKey,
                       child: Column(
                           children: [
-                            Text(
+                            const Text(
                               "Sign in with your email and password.",
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w400),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
+                                const Text(
                                   "Sign In",
                                   style: TextStyle(
-                                      fontSize: 28, fontWeight: FontWeight.bold),
+                                      fontSize: 18, fontWeight: FontWeight.bold),
                                 ),
                                 TextButton(
                                     onPressed: () {},
-                                    child: Text(
+                                    child: const Text(
                                       "Forgot Password",
                                       style: TextStyle(fontSize: 17),
                                     ))
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                              TextFormField(
+                              controller: emailController,
                             keyboardType: TextInputType.emailAddress,
                               validator: (value) {
 
@@ -89,7 +99,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                 }
                                 return null;
                               },
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                               
                                 focusedErrorBorder: OutlineInputBorder(
                                     borderSide:
@@ -106,8 +116,9 @@ class _AuthScreenState extends State<AuthScreen> {
                                         BorderSide(color: Colors.black)),
                               ),
                             ),
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
                             TextFormField(
+                              controller : passwordController,
                               keyboardType : TextInputType.visiblePassword,
                               validator: (value) {
                                 RegExp regex = RegExp(
@@ -115,7 +126,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                 if (value!.isEmpty) {
                                   return 'Please enter password';
                                 } else {
-                                  if (!regex.hasMatch(value)) {
+                                  if (value.length < 6) {
                                     return 'Enter valid password';
                                   } else {
                                     return null;
@@ -123,7 +134,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                 }
                               },
                               obscureText: true,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
 focusedErrorBorder: OutlineInputBorder(
                                     borderSide:
                                         BorderSide(color: Colors.red)) ,
@@ -140,18 +151,18 @@ focusedErrorBorder: OutlineInputBorder(
                                         BorderSide(color: Colors.black)),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             CheckboxListTile(
                               value: true,
                               onChanged: (value) {},
-                              title: Text("Show Password"),
+                              title: const Text("Show Password"),
                             ),
                             CheckboxListTile(
                               value: true,
                               onChanged: (value) {},
-                              title: Text("Keep singed in."),
+                              title: const Text("Keep singed in."),
                             ),
                             InkWell(
                                 onTap: () => _SignInsubmit(),
@@ -162,20 +173,20 @@ focusedErrorBorder: OutlineInputBorder(
                                               40,
                                       vertical: 20),
                                   decoration:
-                                      BoxDecoration(color: Colors.orangeAccent),
-                                  child: Text("Sign In"),
+                                      const BoxDecoration(color: Colors.orangeAccent),
+                                  child: const Text("Sign In"),
                                 )),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
-                            Divider(
+                            const Divider(
                               thickness: 1,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 6,
                             ),
-                            Text("New To Amazon Clone"),
-                            SizedBox(
+                            const Text("New To Amazon Clone"),
+                            const SizedBox(
                               height: 15,
                             ),
                             InkWell(
@@ -192,12 +203,12 @@ focusedErrorBorder: OutlineInputBorder(
                                       vertical: 20),
                                   decoration:
                                       BoxDecoration(color: Colors.orange[200]),
-                                  child: Text("Create a new account"),
+                                  child: const Text("Create a new account"),
                                 )),
-                            Spacer(),
+                            const Spacer(),
                             TextButton(
                                 onPressed: () {},
-                                child: Text("Conditions of Use Privacy Notice"))
+                                child: const Text("Conditions of Use Privacy Notice"))
                           ],
                         ),
                     )
@@ -212,7 +223,7 @@ focusedErrorBorder: OutlineInputBorder(
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text(
+                                const Text(
                                   "Create Account",
                                   style: TextStyle(
                                       fontSize: 27,
@@ -221,10 +232,11 @@ focusedErrorBorder: OutlineInputBorder(
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             TextFormField(
+                              controller : nameController,
                               keyboardType: TextInputType.name,
                               validator: (value) {
                                 if (value!.isEmpty) {
@@ -232,7 +244,7 @@ focusedErrorBorder: OutlineInputBorder(
                                 }
                                 return null;
                               },
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                  errorBorder: OutlineInputBorder(
                                     borderSide:
                                         BorderSide(color: Colors.red)),
@@ -245,10 +257,11 @@ focusedErrorBorder: OutlineInputBorder(
                                         BorderSide(color: Colors.black)),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             TextFormField(
+                              controller : emailController,
                                keyboardType: TextInputType.emailAddress,
                               validator: (value) {
                                 if (value!.isEmpty ||
@@ -258,7 +271,7 @@ focusedErrorBorder: OutlineInputBorder(
                                 }
                                 return null;
                               },
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 focusedErrorBorder: OutlineInputBorder(
                                     borderSide:
                                         BorderSide(color: Colors.red)) ,
@@ -274,10 +287,11 @@ focusedErrorBorder: OutlineInputBorder(
                                         BorderSide(color: Colors.black)),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             TextFormField(
+                              controller  : passwordController,
                                keyboardType: TextInputType.visiblePassword,
                               validator: (value) {
                                 RegExp regex = RegExp(
@@ -285,7 +299,7 @@ focusedErrorBorder: OutlineInputBorder(
                                 if (value!.isEmpty) {
                                   return 'Please enter password';
                                 } else {
-                                  if (!regex.hasMatch(value)) {
+                                  if (value.length < 6) {
                                     return 'Enter valid password';
                                   } else {
                                     return null;
@@ -293,7 +307,7 @@ focusedErrorBorder: OutlineInputBorder(
                                 }
                               },
                               obscureText: true,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
 focusedErrorBorder: OutlineInputBorder(
                                     borderSide:
                                         BorderSide(color: Colors.red)) ,
@@ -310,16 +324,16 @@ focusedErrorBorder: OutlineInputBorder(
                                         BorderSide(color: Colors.black)),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text("Password must be atleast 6 characters."),
+                                const Text("Password must be atleast 6 characters."),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             TextFormField(
@@ -330,7 +344,7 @@ focusedErrorBorder: OutlineInputBorder(
                                 if (value!.isEmpty) {
                                   return 'Please enter password';
                                 } else {
-                                  if (!regex.hasMatch(value)) {
+                                  if (value.length < 6) {
                                     return 'Enter valid password';
                                   } else {
                                     return null;
@@ -338,7 +352,7 @@ focusedErrorBorder: OutlineInputBorder(
                                 }
                               },
                               obscureText: true,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 focusedErrorBorder: OutlineInputBorder(
                                     borderSide:
                                         BorderSide(color: Colors.red)) ,
@@ -354,11 +368,14 @@ focusedErrorBorder: OutlineInputBorder(
                                         BorderSide(color: Colors.black)),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             InkWell(
-                                onTap: () => _SignUpsubmit(),
+                                onTap: () {
+                                  print("I AM WORKING");
+                                  _SignUpsubmit(emailController.text , nameController.text , passwordController.text);
+                                } ,
                                 child: Container(
                                   padding: EdgeInsets.symmetric(
                                       horizontal:
@@ -367,20 +384,20 @@ focusedErrorBorder: OutlineInputBorder(
                                               100,
                                       vertical: 20),
                                   decoration:
-                                      BoxDecoration(color: Colors.orangeAccent),
-                                  child: Text("Create Account"),
+                                      const BoxDecoration(color: Colors.orangeAccent),
+                                  child: const Text("Create Account"),
                                 )),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
-                            Divider(
+                            const Divider(
                               thickness: 1,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 6,
                             ),
-                            Text("Already a customer ?"),
-                            SizedBox(
+                            const Text("Already a customer ?"),
+                            const SizedBox(
                               height: 15,
                             ),
                             InkWell(
@@ -388,6 +405,7 @@ focusedErrorBorder: OutlineInputBorder(
                                   setState(() {
                                     isLoginEnabled = true;
                                   });
+                               
                                 },
                                 child: Container(
                                   padding: EdgeInsets.symmetric(
@@ -398,12 +416,12 @@ focusedErrorBorder: OutlineInputBorder(
                                       vertical: 20),
                                   decoration:
                                       BoxDecoration(color: Colors.orange[200]),
-                                  child: Text("Sign In"),
+                                  child: const Text("Sign In"),
                                 )),
-                            Spacer(),
+                            const Spacer(),
                             TextButton(
                                 onPressed: () {},
-                                child: Text(
+                                child: const Text(
                                     "By creating a account you agree Amazon Clone's Coditions of Use and Privacy Notice."))
                           ],
                         ),

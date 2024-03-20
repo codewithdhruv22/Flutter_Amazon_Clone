@@ -13,9 +13,7 @@ const PORT = 3000;
 // https://www.npmjs.com/nodemon -> Run NodeMon Website
 //http://127.0.0.1/nodemon -> print(Run NodeMon Website)
 
-app.get("/" , function(req, res){
-res.send("HOME PAGE");
-});
+
 
 app.use(dash);
 app.use(express.json());
@@ -35,9 +33,11 @@ app.get("/nodemon", function(req , res){
 
 })
 
-// 0.0.0.0 -- Anywhere
-app.listen(PORT, function(){
-    console.log("NODEJS SERVER STARTED...");
+// 0.0.0.0 -- Anywhere 
+HOST = "0.0.0.0"
+app.listen(PORT,function(){
+
+    console.log("NODEJS SERVER STARTED... %s", HOST);
 })
 
 

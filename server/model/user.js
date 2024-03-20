@@ -40,7 +40,8 @@ return value.match(re);
     type : {
         type : String , 
         default   : 'user'
-    }
+    },
+   
 });
 
 module.exports = mongoose.model("User",userSchema);

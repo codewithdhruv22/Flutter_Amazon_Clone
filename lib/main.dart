@@ -1,17 +1,42 @@
 import 'package:amazon_clone/constant/global.dart';
+import 'package:amazon_clone/controller/authController.dart';
 import 'package:amazon_clone/router.dart';
+import 'package:amazon_clone/utils/bottom_nav_bar.dart';
 import 'package:amazon_clone/view/auth/authScreen.dart';
+import 'package:amazon_clone/view/homeScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'controller/provider_controller/user_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context)=>UserProvider()),
+    ]
+    ,child: const MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+final AuthController  authController = AuthController();
+  @override
+  void initState() {
+    authController.fetchUserData(context);
+    print("STAMP VALUE BY PROVIDER");
+   
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
+     print(Provider.of<UserProvider>(context).user.stamp);
     return MaterialApp(
 onGenerateRoute: (settings) => generateRoute(settings),
       debugShowCheckedModeBanner: false,
@@ -23,26 +48,7 @@ onGenerateRoute: (settings) => generateRoute(settings),
           primary: GlobalVariables.primaryColor
         ),
       ),
-      home: Scaffold(
-      
-          appBar: AppBar(
-            elevation: 0.0,
-            title: Text("Amazon"),
-            centerTitle: true,
-          ),
-          body: Center(child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Hello Amazon"),
-              Builder(
-                builder: (context) {
-                  return ElevatedButton(onPressed: (){
-                    Navigator.pushNamed(context, AuthScreen.routeName);
-                  }, child: Text("Click Me"));
-                }
-              )
-            ],
-          ))),
+      home: Provider.of<UserProvider>(context).user.stamp.isNotEmpty ? BottomNavBar() : AuthScreen()
     );
   }
 }
