@@ -1,5 +1,6 @@
 import 'package:amazon_clone/view/auth/authScreen.dart';
 import 'package:amazon_clone/view/homeScreen.dart';
+import 'package:amazon_clone/view/profileScreen.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -15,7 +16,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 int screen_index = 0;
 List<Widget> screens = [
 HomeScreen(),
-AuthScreen(),
+ProfileScreen(),
 ];
 
 
