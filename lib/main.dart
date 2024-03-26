@@ -2,6 +2,7 @@ import 'package:amazon_clone/constant/global.dart';
 import 'package:amazon_clone/controller/authController.dart';
 import 'package:amazon_clone/router.dart';
 import 'package:amazon_clone/utils/bottom_nav_bar.dart';
+import 'package:amazon_clone/utils/seller_bottom_nav_bar.dart';
 import 'package:amazon_clone/view/auth/authScreen.dart';
 import 'package:amazon_clone/view/homeScreen.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,7 @@ onGenerateRoute: (settings) => generateRoute(settings),
           primary: GlobalVariables.primaryColor
         ),
       ),
-      home: Provider.of<UserProvider>(context).user.stamp.isNotEmpty ? BottomNavBar() : AuthScreen()
+      home: Provider.of<UserProvider>(context).user.stamp.isNotEmpty ? Provider.of<UserProvider>(context).user.type == 'user' ?  BottomNavBar() : SellerBottomNavBar() : AuthScreen()
     );
   }
 }

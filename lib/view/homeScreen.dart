@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../controller/provider_controller/user_provider.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key});    
   static const String routeName = '/home-screen';
 
 
