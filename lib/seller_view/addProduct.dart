@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:amazon_clone/seller_view/controller/AdminController.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -143,6 +144,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                     tag: 'imageHero$index',
                                     child: Container(
                                       width: double.infinity,
+                                      height: double.infinity,
                                       child: Image.file(
                                         _images[index],
                                         fit: BoxFit.cover,
@@ -297,7 +299,18 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 height: 50,
               ),
               InkWell(
-                  onTap: () {},
+                  onTap: () {
+                   AdminController().sellProduct
+                   (
+                    context: context,
+                    name: 'MacbookPro', description: 'Des',
+                    price: 20000,
+                    quantity: 232,
+                    category: 'adada',
+                    images: _images,
+                    
+                   );
+                  },
                   child: Container(
                     padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width / 2 - 70,
